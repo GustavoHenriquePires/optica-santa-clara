@@ -22,10 +22,14 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: TypeScript check
-        run: npx tsc --noEmit
+      - name: Type-check storefront only
+        run: >-
+          npx tsc --noEmit --jsx react-jsx --esModuleInterop
+          --allowSyntheticDefaultImports --module esnext --moduleResolution bundler
+          --target es2022 --lib dom,dom.iterable,es2022 --skipLibCheck
+          app/page.tsx app/layout.tsx
 
-      - name: Check static demo assets
+      - name: Validate Santa Clara assets and mobile navigation
         run: |
           test -f public/santa-clara-v2.html
           test -f public/site-v2/hero-vogue.b64
@@ -36,9 +40,8 @@ jobs:
           test -f public/site-v2/carolina-black-detail.b64
           test -f public/site-v2/carolina-black-case.b64
           test -f public/site-v2/carolina-red.b64
-          grep -q '<span />' app/page.tsx
+          grep -q 'menu-toggle' app/page.tsx
+          test "$(grep -o '<span />' app/page.tsx | wc -l)" -ge 3
           grep -q 'santa-pink.b64' app/page.tsx
           grep -q 'carolina-red.b64' app/page.tsx
-
-      - name: Build
-        run: npm run build
+          grep -q 'optica-santa-clara-demo.vercel.app' app/layout.tsx

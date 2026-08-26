@@ -3,9 +3,33 @@
 import { useState } from "react";
 
 const services = [
-  { number: "01", brand: "Ray-Ban", title: "Óculos de grau", text: "Armações originais com design marcante, conforto e personalidade para acompanhar sua rotina.", image: "https://images.miaburton.com/2025/ray-ban-rx5448-2000-376x376.jpg", className: "service-rayban-optical" },
-  { number: "02", brand: "Varilux", title: "Lentes de qualidade", text: "Tecnologia em lentes progressivas para uma visão nítida, confortável e natural em todas as distâncias.", image: "https://www.interoptik.no/globalassets/brilleglass/varilux/nor_vxxr_non_media_stephen_banner_1440_x1080__closeup_3000x1500.jpg?transform=DownFit&width=1000", className: "service-varilux" },
-  { number: "03", brand: "Ray-Ban", title: "Óculos de sol", text: "Modelos icônicos com proteção, qualidade e o estilo inconfundível que atravessa gerações.", image: "https://assets2.glasses.com/prod-onecp-record-files/pieyewear/6ad42b4b-f1af-45cc-a6c6-b35d00db1f85/0RB3025__L0205__STD__shad__qt.png?impolicy=GL_parameters_transp_clone1440", className: "service-rayban-sun" },
+  {
+    number: "01",
+    brand: "Carolina Herrera",
+    title: "Armações de grau",
+    text: "Modelos selecionados com design, conforto e personalidade para acompanhar a sua rotina.",
+    image: "/colecao-azul.webp",
+    className: "service-local",
+    position: "center",
+  },
+  {
+    number: "02",
+    brand: "Carolina Herrera",
+    title: "Design em cada detalhe",
+    text: "Acabamentos marcantes, cores sofisticadas e escolhas pensadas para valorizar o seu olhar.",
+    image: "/colecao-vermelho.webp",
+    className: "service-local",
+    position: "center",
+  },
+  {
+    number: "03",
+    brand: "Curadoria Santa Clara",
+    title: "Estilo e personalidade",
+    text: "Armações que unem presença e conforto, com atendimento próximo para encontrar a opção certa para você.",
+    image: "/hero-colecao.webp",
+    className: "service-local",
+    position: "center",
+  },
 ];
 
 const units = [
@@ -73,13 +97,42 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="Ilustração de óculos">
-          <div className="red-orbit" />
-          <div className="glasses">
-            <span className="lens left" /><span className="bridge" /><span className="lens right" />
-          </div>
-          <p className="visual-note">Seu olhar.<br /><strong>Nossa prioridade.</strong></p>
-          <span className="vertical-copy">DESDE SEMPRE, PERTO DE VOCÊ</span>
+        <div className="hero-visual" aria-label="Armação Carolina Herrera da coleção da Óptica Santa Clara" style={{ isolation: "isolate" }}>
+          <img
+            src="/hero-colecao.webp"
+            alt="Armação preta Carolina Herrera sobre estojo vermelho"
+            decoding="async"
+            fetchPriority="high"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              zIndex: 0,
+            }}
+          />
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(180deg, rgba(45,10,13,.03) 20%, rgba(45,10,13,.52) 100%)",
+              zIndex: 1,
+            }}
+          />
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              inset: 30,
+              border: "1px solid rgba(255,255,255,.34)",
+              zIndex: 2,
+            }}
+          />
+          <p className="visual-note" style={{ zIndex: 3 }}>Seu olhar.<br /><strong>Nossa prioridade.</strong></p>
+          <span className="vertical-copy" style={{ zIndex: 3 }}>CURADORIA SANTA CLARA</span>
         </div>
       </section>
 
@@ -99,7 +152,13 @@ export default function Home() {
         <div className="service-grid">
           {services.map((service) => (
             <article className={service.className} key={service.number}>
-              <img src={service.image} alt={`${service.title} ${service.brand}`} loading="lazy" decoding="async" />
+              <img
+                src={service.image}
+                alt={`${service.title} ${service.brand}`}
+                loading="lazy"
+                decoding="async"
+                style={{ objectPosition: service.position }}
+              />
               <div className="service-shade" />
               <div className="service-number">{service.number}</div>
               <div className="service-content">
